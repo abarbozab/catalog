@@ -1,0 +1,120 @@
+{% extends "maingeneral.html" %}
+{% block hedar_css %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/login.css') }}">
+      <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+{% endblock %}
+{% block content %}
+    <div class="panel-login">
+        <h2>Catalog System</h2>
+        <div class="redes">
+            <div class="row">
+                <div class="col-lg-6 col-xs-6">
+                    <div class="row cont-redes">
+                        <div class="col-md-12 icon1">
+                            <div id="signInButton">
+                                <span class="g-signin"
+                                  data-scope="openid email"
+                                  data-clientid="469346283936-b4il68ohblbgpd8h39bjpq7d2ravpb72.apps.googleusercontent.com"
+                                  data-redirecturi="postmessage"
+                                  data-accesstype="offline"
+                                  data-cookiepolicy="single_host_origin"
+                                  data-callback="signInCallback"
+                                  data-approvalprompt="force">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xs-6">
+                    <div class="row cont-redes">
+                        <div class="col-md-12 icon2">
+                           <button>
+                              <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+                                <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+                              </fb:login-button>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+<script>
+  function signInCallback(authResult){
+    if(authResult['code']){
+      console.log(authResult['code']);
+      //$('#signInButton').hide();
+      $.ajax({
+         type:'POST'
+        ,url:'gconnect?state={{STATE}}'
+        ,processData: false
+        ,data:authResult['code']
+        ,contentType: 'application/octet-stream; charset=utf-8'
+        ,success:function(result){
+          if(result){
+            window.location.href = '/';
+          }else if(authResult['error']){
+            console.log('There was an error:'+authResult['error']);
+          }else{
+            $('#result').html('Failed to make  a server -side call Check your configuration and console.');
+          }
+        }
+        ,error:function(data){
+            var d = data;
+        }
+      })
+    }
+
+  }
+</script>
+<!--FACEBOOK SIGN IN -->
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1026693307379133',
+    cookie     : true,  // enable cookies to allow the server to access
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.2
+  });
+  };
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function sendTokenToServer() {
+    var access_token = FB.getAuthResponse()['accessToken'];
+    console.log(access_token)
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+        console.log('Successful login for: ' + response.name);
+        $.ajax({
+          type: 'POST',
+          url: '/fbconnect?state={{STATE}}',
+          processData: false,
+          data: access_token,
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            if (result) {
+                window.location.href = "/";
+            } else {
+                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+            }
+          }
+        });
+    });
+  }
+</script>
+{% endblock %}

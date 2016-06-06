@@ -1,0 +1,78 @@
+.container .row{
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.page-header{
+    margin: 20px 0 20px !important;
+}
+
+h1{
+    color: #036 !important;
+}
+
+ul.listItems li{
+    list-style: none;
+    line-height: 200%;
+    font-size: 20px;
+    padding-left: 0px;
+}
+
+span.itemCategory{
+    color: #555;
+}
+
+ul.listItems a, .list-group a, .addItem a, .buttons a{
+    text-decoration: none;
+    color: #900 !important;
+}
+
+ul.listItems a:hover, .list-group a:hover{
+    text-decoration: none;
+    color: #036 !important;
+}
+
+.list-group a.active{
+    color: white !important;
+}
+
+#sidebar h1, #sidebar{
+    margin-top: 0px;
+}
+
+.info-item{
+    margin-top: 80px;
+    border-radius: 5px;
+    border: solid #eee 2px;
+}
+
+.addItem{
+    font-size: 14px;
+}
+
+.info-item .edit i{
+    padding-right: 5px;
+    border-right: solid #000 2px;
+}
+
+.info-item .delete i{
+    margin-left: 5px;
+}
+
+.addItem, .editItem{
+    margin-top: 80px;
+}
+
+.flash {
+    background-color: #98FB98;
+    width:100%;
+    text-decoration: none;
+
+}
+
+.flash li {
+    list-style-type: none;
+    text-align: center;
+
+}
+

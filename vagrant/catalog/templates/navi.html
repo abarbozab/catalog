@@ -1,0 +1,14 @@
+<div class="col-xs-6 col-sm-3 col-md-3 sidebar-offcanvas page-header" id="sidebar" role="navigation">
+    <h1>Categories</h1>
+    <div class="list-group">
+        {% for category in categories %}
+        <a href="{{ url_for('showCategoryItems', category_name=category[0].name) }}"
+          class="list-group-item {% if category_name == category[0].name  %} active {% endif %}">
+            {{ category[0].name }}
+           <span class="label label-default label-pill pull-xs-right" style="float:right;">
+              {{ category[1] }}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>

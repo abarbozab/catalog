@@ -1,0 +1,23 @@
+{% extends "maingeneral.html" %}
+{% block hedar_css %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="info-item col-xs-12">
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.description }}</p>
+        {% if creator %}
+          <div class="co-xs-12">
+              <span class="edit buttons" title="Edit">
+                <a href="{{ url_for('editItem', item_title=item.title)}}"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a>
+              </span>
+              <span class="delete buttons" title="Delete">
+                <a href="{{ url_for('deleteItem', item_title=item.title)}}"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>
+              </span>
+          </div>
+          {% endif %}
+    </div>
+{% endblock %}

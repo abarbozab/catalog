@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block hedar_css %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class = 'flash col-xs-12'>
+            <ul>
+                {% for message in messages %}
+                    <li> <strong> {{ message }} </strong> </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+    {% endwith %}
+<h1>Lates Items
+    {% if 'username' in session %}
+        <span class="addItem" title="Add Item">
+            <a href="{{ url_for('addItem') }}">
+                <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+                Add Item
+            </a>
+        </span>
+    {% endif %}
+</h1>
+<ul class="listItems">
+    {% for item in items  %}
+    <li>
+        <a href="{{url_for('showItem',category_name=item.category.name,item_title=item.title)}}">{{item.title}}
+            <span class="itemCategory">({{ item.category.name }})</span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

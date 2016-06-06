@@ -1,0 +1,27 @@
+{% extends "maingeneral.html" %}
+{% block hedar_css %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="info-item col-xs-12">
+        <h1>Delete Item</h1>
+         <form class="form-horizontal" action="#" method="POST">
+            <div class="form-group">
+              <label for="title" class="col-sm-12 control-label" style="text-align: left;">
+                  Are you sure you want to delete {{ item_title }} Item?
+              </label>
+              <input type="text" value="{{item_title}}" name="item_title" class="hidden">
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Delete</button>
+                <a class="btn btn-default" href="{{url_for('showCatalog')}}">Cancel</a>
+              </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
