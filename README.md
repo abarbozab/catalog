@@ -37,7 +37,7 @@ To Run the virtual machine follow the next steps:
   ```
 ### Create Database and Run application
 
-* To build and access the database we run `python database_setup.py`.
+* To configure the database we run `python database_setup.py`.
 * Then we populate the database running `python populate_db.py`.
 * Once database schema is created and it's populated. We run the program from the command line with `$ python application.py`.
 * Finally, Access and test your application by visiting [http://localhost:8000] locally on your browser.
